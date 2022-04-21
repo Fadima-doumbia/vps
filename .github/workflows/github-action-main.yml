@@ -1,5 +1,5 @@
 name: Deploy
-on: 
+on:
   push:
     branches: [ main ]
 
@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: Use Node.js
       uses: actions/setup-node@v2
-      with: 
+      with:
         node-version: '16.x'
 
     - uses: actions/checkout@v2
@@ -25,17 +25,17 @@ jobs:
     - name: lint
       run: npm run lint
 
-    - name: Unit tests
-      run: npm run test
+    # - name: Unit tests
+    #   run: npm run test
 
-  build: 
+  build:
     needs: test
     runs-on: ubuntu-latest
 
     steps:
     - name: Use Node.js
       uses: actions/setup-node@v2
-      with: 
+      with:
         node-version: '16.x'
 
     - uses: actions/checkout@v2
@@ -44,23 +44,23 @@ jobs:
       run: npm install
 
     - name: Build app
-      run: npm run watch 
+      run: npm run watch
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
-      with: 
+      with:
         name: vps-${{ github.run_id }}-${{ github.run_number }}
         path: ./dist/vps
 
-  deploy: 
+  deploy:
     needs: build
     runs-on: ubuntu-latest
 
-    steps: 
+    steps:
     - name: Dowload artifact
       uses: actions/download-artifact@v2
-      with: 
-        name: vps-${{ github.run_id }}-${{ github.run_number }} 
+      with:
+        name: vps-${{ github.run_id }}-${{ github.run_number }}
         path: './vps'
 
     - name: Copy repository contents via scp
