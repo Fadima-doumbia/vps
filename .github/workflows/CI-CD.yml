@@ -71,4 +71,4 @@ jobs:
         port: ${{ secrets.AZURE_PORT }}
         key: ${{ secrets.SECRET_KEY_SSH }}
         source: "./vps/"
-        target: "/var/www/"
+        target: "/home/${{ secrets.USERNAME }}"
