@@ -61,15 +61,23 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: vps-${{ github.run_id }}-${{ github.run_number }}
-        path: './vps'
+        path: './build'
 
     - name: Copy repository contents via scp
       uses: appleboy/scp-action@master
-      env:
+      with:
         host: ${{ secrets.AZURE_HOST }}
         username: ${{ secrets.AZURE_USERNAME }}
         port: ${{ secrets.AZURE_PORT }}
         key: ${{ secrets.SECRET_KEY_SSH }}
+        script: ls
+        
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
       with:
-        source: "./var/www/"
+        host: ${{ secrets.AZURE_HOST }}
+        username: ${{ secrets.AZURE_USERNAME }}
+        port: ${{ secrets.AZURE_PORT }}
+        key: ${{ secrets.SECRET_KEY_SSH }}
+        source: "./build/"
         target: "/home/${{ secrets.USERNAME }}"
