@@ -70,6 +70,6 @@ jobs:
         username: ${{ secrets.AZURE_USERNAME }}
         port: ${{ secrets.AZURE_PORT }}
         key: ${{ secrets.SECRET_KEY_SSH }}
-        source: "./var/www/"
+        source: "./build/"
         target: "/home/${{ secrets.USERNAME }}"
 
