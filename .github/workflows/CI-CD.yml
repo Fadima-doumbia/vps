@@ -63,7 +63,7 @@ jobs:
         name: vps-${{ github.run_id }}-${{ github.run_number }}
         path: './build'
 
-    - name: Copy repository contents via scp
+    - name: Copy repository content via scp
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.AZURE_HOST }}
